@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Match Predictor ⚽</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #0f1923;
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #38ef7d;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #888;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .card {
+            background: #1a2535;
+            border-radius: 12px;
+            padding: 32px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            color: #aaa;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        select, input[type="number"] {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid #2e3d55;
+            background: #0f1923;
+            color: #e0e0e0;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        select:focus, input[type="number"]:focus {
+            border-color: #38ef7d;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .section-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #38ef7d;
+            margin: 24px 0 12px;
+            border-bottom: 1px solid #2e3d55;
+            padding-bottom: 6px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #38ef7d, #11998e);
+            color: #0f1923;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 24px;
+            transition: opacity 0.2s;
+        }
+
+        button:hover { opacity: 0.88; }
+
+        .emoji { font-size: 1.5rem; margin-right: 8px; }
+    </style>
+</head>
+<body>
+    <h1><span class="emoji">⚽</span> Match Result Predictor</h1>
+    <p class="subtitle">Powered by Random Forest · La Liga Data</p>
+
+    <div class="card">
+        <form action="/predict" method="POST">
+
+            <p class="section-title">Teams</p>
+            <div class="row">
+                <div class="form-group">
+                    <label>Home Team</label>
+                    <select name="home_team" required>
+                        {% for team in home_teams %}
+                        <option value="{{ team }}">{{ team }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Away Team</label>
+                    <select name="away_team" required>
+                        {% for team in away_teams %}
+                        <option value="{{ team }}">{{ team }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <p class="section-title">Match Details</p>
+            <div class="row">
+                <div class="form-group">
+                    <label>Referee</label>
+                    <select name="referee" required>
+                        {% for ref in referees %}
+                        <option value="{{ ref }}">{{ ref }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Venue</label>
+                    <select name="venue" required>
+                        {% for v in venues %}
+                        <option value="{{ v }}">{{ v }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label>Day of Week</label>
+                    <select name="day" required>
+                        {% for d in days %}
+                        <option value="{{ d }}">{{ d }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Week Number</label>
+                    <input type="number" name="week" value="20" min="1" max="38" required>
+                </div>
+            </div>
+
+            <p class="section-title">Rolling Stats (Last 5 Games)</p>
+            <div class="row">
+                <div class="form-group">
+                    <label>Home Avg Goals</label>
+                    <input type="number" name="home_rolling_goals" value="1.5" step="0.1" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label>Away Avg Goals</label>
+                    <input type="number" name="away_rolling_goals" value="1.2" step="0.1" min="0" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label>Home Avg xG</label>
+                    <input type="number" name="home_rolling_xg" value="1.5" step="0.1" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label>Away Avg xG</label>
+                    <input type="number" name="away_rolling_xg" value="1.2" step="0.1" min="0" required>
+                </div>
+            </div>
+
+            <button type="submit">⚡ Predict Result</button>
+        </form>
+    </div>
+</body>
+</html>

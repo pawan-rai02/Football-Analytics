@@ -1,59 +1,56 @@
-# Football Analysis
+# ⚽ Football Analytics
 
-This repository contains a collection of Jupyter notebooks for football/soccer data collection, analysis, and visualization.
+A structured learning repository covering football data science — from **web scraping** and **data visualization** to **machine learning** and **model deployment**. All projects use real football data.
 
-## Repository Structure
+---
 
-### 01-webscrapping
-Notebook focused on web scraping workflows.
+## 📂 Repository Structure
 
-- `01-scarpe-this.ipynb`
+| Folder | Topic | Key Libraries |
+|---|---|---|
+| `01-webscrapping` | Scraping match data from websites | requests, BeautifulSoup, Selenium |
+| `02-stats-bomb` | Exploring StatsBomb open event data | statsbombpy, pandas |
+| `03-fbref` | Scraping FBRef player/team stats | Selenium, pandas |
+| `04-sofascore` | Pulling data from Sofascore | requests, pandas |
+| `05-visualizations` | Football-specific plots | mplsoccer, matplotlib, seaborn |
+| `06-data-analysis` | EDA and statistics | pandas, numpy, scipy |
+| `07-machine-learning` | Classification & regression models | scikit-learn |
+| `08-projects` | Full end-to-end projects | All of the above + Flask |
 
-### 02-stats-bomb
-Notebook for working with StatsBomb data.
+---
 
-- `01-statsbomb.ipynb`
+## 🏆 Projects (`08-projects`)
 
-### 03-fbref
-Notebook for scraping or processing data from FBref.
+### [Project 1 — FIFA World Cup Final 2022: Argentina vs France](./08-projects/01-project/)
+Match report dashboard using StatsBomb event data. Includes pass networks, shot maps, xG flow chart, and match stats table for the 2022 World Cup Final (Argentina 3–3 France).
 
-- `01-selenium-fbref.ipynb`
+### [Project 2 — Match Result Predictor](./08-projects/02-project/)
+Random Forest classifier predicting La Liga match outcomes (Home Win / Away Win / Draw) across 4,500+ matches. Deployed as a Flask web app. Final accuracy: **51.9%** on the 2023 season test set.
 
-### 04-sofascore
-Notebook for Sofascore web scraping.
+---
 
-- `01-sofascore-webscrapping.ipynb`
+## 🛠️ Tech Stack
 
-### 05-visualizations
-Notebook collection for football visualizations.
+- **Language:** Python 3.14
+- **Data:** pandas, numpy
+- **Visualization:** matplotlib, seaborn, mplsoccer, plotly
+- **Football Data:** statsbombpy, FBRef (via Selenium), Sofascore
+- **Machine Learning:** scikit-learn
+- **Deployment:** Flask, joblib
+- **Scraping:** requests, BeautifulSoup, Selenium, lxml
+- **Environment:** Jupyter Notebooks, VS Code, virtualenv (`analysis`)
 
-- `01-scatterplots.ipynb`
-- `02-radar-plots.ipynb`
-- `03-tables.ipynb`
-- `04-xG-flow-charts.ipynb`
-- `05-soccer-pitch.ipynb`
+---
 
-## Purpose
+## ⚙️ Setup
 
-The notebooks in this repository are intended to support football analytics work, including:
+```powershell
+# Activate the virtual environment
+.\analysis\Scripts\activate
 
-- Data collection from football websites
-- Working with public football data sources
-- Building charts and visualizations
-- Exploring match, player, and team performance
+# All dependencies are already installed in the 'analysis' venv
+# If starting fresh:
+pip install -r 08-projects/02-project/deployment/requirements.txt
+```
 
-## Getting Started
-
-1. Open the repository in Jupyter Notebook or VS Code.
-2. Navigate to the folder that matches the topic you want to explore.
-3. Run the notebooks cell by cell.
-
-## Notes
-
-- Notebook names are kept in the order they were created or organized.
-- Some notebooks may depend on packages such as `pandas`, `matplotlib`, `seaborn`, `requests`, `beautifulsoup4`, `selenium`, or other data/visualization libraries.
-- If a notebook requires credentials, browser drivers, or API access, set those up before running it.
-
-## Contributing
-
-If you add new notebooks, keep them organized in the appropriate topic folder and use clear, descriptive file names.
+> See individual project READMEs for specific run instructions.

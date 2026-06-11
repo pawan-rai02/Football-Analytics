@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result ⚽</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #0f1923;
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .card {
+            background: #1a2535;
+            border-radius: 12px;
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+
+        .matchup {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 24px;
+        }
+
+        .matchup strong {
+            color: #fff;
+        }
+
+        .result-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #38ef7d;
+            margin-bottom: 8px;
+        }
+
+        .result {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #38ef7d;
+            margin-bottom: 32px;
+        }
+
+        .proba-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #888;
+            margin-bottom: 16px;
+        }
+
+        .bar-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            gap: 12px;
+        }
+
+        .bar-label {
+            width: 100px;
+            text-align: right;
+            font-size: 0.9rem;
+            color: #ccc;
+            flex-shrink: 0;
+        }
+
+        .bar-track {
+            flex: 1;
+            background: #0f1923;
+            border-radius: 99px;
+            height: 14px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 99px;
+            background: linear-gradient(90deg, #11998e, #38ef7d);
+            transition: width 0.6s ease;
+        }
+
+        .bar-pct {
+            width: 48px;
+            text-align: left;
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 32px;
+            padding: 12px 28px;
+            background: transparent;
+            border: 1px solid #38ef7d;
+            color: #38ef7d;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: background 0.2s;
+        }
+        .back-btn:hover {
+            background: #38ef7d22;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="matchup">
+            <strong>{{ home_team }}</strong> vs <strong>{{ away_team }}</strong>
+        </div>
+
+        <div class="result-label">Predicted Result</div>
+        <div class="result">
+            {% if prediction == 'Home win' %}🏠 Home Win
+            {% elif prediction == 'Away win' %}✈️ Away Win
+            {% else %}🤝 Draw
+            {% endif %}
+        </div>
+
+        <div class="proba-title">Outcome Probabilities</div>
+
+        {% for label, pct in proba.items() %}
+        <div class="bar-row">
+            <div class="bar-label">{{ label }}</div>
+            <div class="bar-track">
+                <div class="bar-fill" style="width: {{ pct }}%"></div>
+            </div>
+            <div class="bar-pct">{{ pct }}%</div>
+        </div>
+        {% endfor %}
+
+        <a href="/" class="back-btn">← Predict Another</a>
+    </div>
+</body>
+</html>
